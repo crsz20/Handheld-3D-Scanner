@@ -1,4 +1,4 @@
-mport smbus					#import SMBus module of I2C
+import smbus					#import SMBus module of I2C
 from time import sleep          #import
 
 #some MPU6050 Registers and their Address
@@ -46,6 +46,7 @@ def read_raw_data(addr):
 
 
 bus = smbus.SMBus(1) 	# or bus = smbus.SMBus(0) for older version boards
+sleep(1)
 Device_Address = 0x68   # MPU6050 device address
 
 MPU_Init()
