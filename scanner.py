@@ -26,23 +26,42 @@ class Scanner:
         self.current_session_dir = session_path
 
     def scan(self):
-        # validate that a session has started
+        # TODO: validate that a session has started
+        # TODO: take a series of pictures
         print("hi")
 
     def stop_session(self):
-        # validate that session has started
-        print("hi")
+        # TODO: validate that session has started
+        # TODO: stop the camera
+        session_dir = self.current_session_dir
+        self.current_session_dir = ""
+        return Scan(session_dir, "9/26/23")
+
+class Scan:
+    directory_path = ""
+    date = ""
+    def __init__(self, directory_path, date):
+        self.directory_path = directory_path
+        self.date = date
+
+    def to_dict(self):
+        return dict(directory_path = self.directory_path, date = self.date)
 
 class FileManager:
     database = TinyDB('database.json')
 
-    def insert_session(self, dir):
-        # store filepath and date
-        print("hi")
+    def insert_session(self, scan):
+        # Store filepath and date
+        self.database.insert(scan.to_dict())
 
     def query_session(self):
-        # Search for disired session
+        # TODO: Search for disired session
         print("hi")
+    
+    def show_database(self):
+        print("===All scans in database===")
+        for scan in self.database:
+            print(scan)
 
 
 default_root_dir = "/home/crsz/Pictures/Scans/"
@@ -51,4 +70,8 @@ scanner = Scanner(default_root_dir)
 file_manager = FileManager()
 
 scanner.start_session()
-print("New scanning session dir:\n" + scanner.current_session_dir)
+print("New scanning session dir:\t" + scanner.current_session_dir + "\n")
+
+scan = scanner.stop_session()
+file_manager.insert_session(scan)
+file_manager.show_database()
