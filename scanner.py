@@ -13,12 +13,10 @@ class Scanner:
         self.root_dir = root_dir
 
     def start_session(self):
-        # Make a new sub-directory
-        # print(os.path.exists(self.root_dir))
         session_num = 1
         
         while True:
-            session_path = os.path.join(self.root_dir, str(session_num))
+            session_path = os.path.join(self.root_dir, "session" + str(session_num))
             if not os.path.exists(session_path):
                 break
             
@@ -26,7 +24,6 @@ class Scanner:
 
         os.mkdir(session_path)
         self.current_session_dir = session_path
-        print(os.path.exists(self.current_session_dir))
 
     def scan(self):
         # validate that a session has started
@@ -54,3 +51,4 @@ scanner = Scanner(default_root_dir)
 file_manager = FileManager()
 
 scanner.start_session()
+print("New scanning session dir:\n" + scanner.current_session_dir)
