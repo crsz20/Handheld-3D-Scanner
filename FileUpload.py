@@ -3,8 +3,13 @@ from azure.iot.device import IoTHubDeviceClient
 from azure.core.exceptions import AzureError
 from azure.storage.blob import BlobClient
 
-CONNECTION_STRING = "[Primary device connection string]"
-PATH_TO_FILE = r"[file path]"
+from picamera2 import Picamera2, Preview
+import time
+
+scan_file_path = "/home/crsz/Pictures/Scans/test_image1.jpg"
+
+CONNECTION_STRING = "[primary connection string]"
+PATH_TO_FILE = r'{}'.format(scan_file_path) # Convert to raw string
 
 def store_blob(blob_info, file_name):
     try:
@@ -63,6 +68,18 @@ def run_sample(device_client):
         )
 
 def main():
+
+    picam2 = Picamera2()
+    camera_config = picam2.create_still_configuration(main={"size": (1920, 1080)}, lores={"size": (640, 480)}, display="lores")
+    picam2.configure(camera_config)
+    # with direct display:
+    #picam2.start_preview(Preview.QTGL)
+    # with remote vnc viewing:
+    picam2.start_preview(Preview.QT)
+    picam2.start()
+    time.sleep(2)
+    picam2.capture_file(scan_file_path)
+
     device_client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRING)
 
     try:
