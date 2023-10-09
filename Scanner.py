@@ -1,5 +1,5 @@
+# External Dependencies
 import os # File directory management
-from tinydb import TinyDB, Query
 
 # Handles taking a photo and controlling system
 # state. Then, hands the filepath + date to the database
@@ -37,6 +37,8 @@ class Scanner:
         self.current_session_dir = ""
         return Scan(session_dir, "9/26/23")
 
+
+
 class Scan:
     directory_path = ""
     date = ""
@@ -47,31 +49,3 @@ class Scan:
     def to_dict(self):
         return dict(directory_path = self.directory_path, date = self.date)
 
-class FileManager:
-    database = TinyDB('database.json')
-
-    def insert_session(self, scan):
-        # Store filepath and date
-        self.database.insert(scan.to_dict())
-
-    def query_session(self):
-        # TODO: Search for disired session
-        print("hi")
-    
-    def show_database(self):
-        print("===All scans in database===")
-        for scan in self.database:
-            print(scan)
-
-
-default_root_dir = "/home/crsz/Pictures/Scans/"
-scanner = Scanner(default_root_dir)
-
-file_manager = FileManager()
-
-scanner.start_session()
-print("New scanning session dir:\t" + scanner.current_session_dir + "\n")
-
-scan = scanner.stop_session()
-file_manager.insert_session(scan)
-file_manager.show_database()
