@@ -16,7 +16,6 @@ def evaluate_buttons(file_manager, scanner):
                     path = file_manager.create_folder()
                     scanner.start_session(path)
                 scanner.scan()
-                scanner.scan()
             
             if repr(button_press) == '\'q\'':
                 print("Ending session")
@@ -32,22 +31,6 @@ def main():
     scanner = Scanner()
 
     evaluate_buttons(file_manager, scanner)
-    
-    # path = file_manager.create_folder()
-    # scanner.start_session(path)
-    # scanner.scan()
-    # scanner.scan()
-    # print("New scanning session dir:\t" + scanner.current_session_dir + "\n")
-    # scan = scanner.stop_session()
-    # file_manager.insert_session(scan)
-
-    # new_path = file_manager.create_folder()
-    # scanner.start_session(new_path)
-    # scanner.scan()
-    # scanner.scan()
-    # print("New scanning session dir:\t" + scanner.current_session_dir + "\n")
-    # scan = scanner.stop_session()
-    # file_manager.insert_session(scan)
 
     file_manager.show_database()
 
