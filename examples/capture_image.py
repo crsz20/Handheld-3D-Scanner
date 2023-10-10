@@ -6,7 +6,7 @@ picam2.configure(camera_config)
 # with direct display:
 #picam2.start_preview(Preview.QTGL)
 # with remote vnc viewing:
-picam2.start_preview(Preview.QT)
+#picam2.start_preview(Preview.QT)
 picam2.start()
-time.sleep(2)
+#time.sleep(2)
 picam2.capture_file("/home/crsz/Pictures/Scans/test_picam2.jpg")
