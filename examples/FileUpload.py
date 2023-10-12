@@ -3,9 +3,6 @@ from azure.iot.device import IoTHubDeviceClient
 from azure.core.exceptions import AzureError
 from azure.storage.blob import BlobClient
 
-from picamera2 import Picamera2, Preview
-import time
-
 scan_file_path = "/home/crsz/Pictures/Scans/test_image1.jpg"
 
 CONNECTION_STRING = "[primary connection string]"
