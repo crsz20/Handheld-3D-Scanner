@@ -1,5 +1,4 @@
 # External Dependencies
-import os
 from datetime import datetime
 from dateutil import tz
 from picamera2 import Picamera2
@@ -12,10 +11,8 @@ class Scanner:
     is_in_session = False
     current_session_dir = ""
     image_count = 0
-    
-    ## TODO: initialize accelerometer
         
-    def __get_datetime__(self):
+    def __get_datetime(self):
         now = datetime.now()
         date = now.date()
 
@@ -46,14 +43,10 @@ class Scanner:
         
 
     def scan(self):
-        # TODO: validate that a session has started
-        # TODO: take a series of pictures
         self.image_count += 1
         self.camera.capture_file(self.current_session_dir + "/image" + str(self.image_count) + ".jpg")
 
     def stop_session(self):
-        # TODO: validate that session has started
-        # TODO: stop the camera
         if self.is_in_session == True:
             self.is_in_session = False
             session_dir = self.current_session_dir
@@ -63,7 +56,7 @@ class Scanner:
         else:
             print("You must first start a scanning session")
 
-        now = self.__get_datetime__()
+        now = self.__get_datetime()
         return ScanSession(session_dir, now[0], now[1])
 
 
