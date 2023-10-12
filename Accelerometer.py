@@ -46,37 +46,41 @@ class Accelerometer:
                     value = value - 65536
             return value
 
+    def compute_acceleration(self):
+        acc_x = self.read_raw_data(ACCEL_XOUT_H)
+        acc_y = self.read_raw_data(ACCEL_YOUT_H)
+        acc_z = self.read_raw_data(ACCEL_ZOUT_H)
+
+        #Full scale range +/- 250 degree/C as per sensitivity scale factor
+        Ax = acc_x/16384.0
+        Ay = acc_y/16384.0
+        Az = acc_z/16384.0
+
+        return (Ax, Ay, Az)
+
+    def compute_angular_velocity(self):
+        gyro_x = self.read_raw_data(GYRO_XOUT_H)
+        gyro_y = self.read_raw_data(GYRO_YOUT_H)
+        gyro_z = self.read_raw_data(GYRO_ZOUT_H)
+
+        Gx = gyro_x/131.0
+        Gy = gyro_y/131.0
+        Gz = gyro_z/131.0
+
+        return (Gx, Gy, Gz)
 
 
 
 Device_Address = 0x68   # MPU6050 device address
-acc = Accelerometer()
-acc.MPU_Init()
-sleep(1)
+# acc = Accelerometer()
+# acc.MPU_Init()
+# sleep(1)
 
-print (" Reading Data of Gyroscope and Accelerometer")
+# print (" Reading Data of Gyroscope and Accelerometer")
 
-while True:
-	
-	#Read Accelerometer raw value
-	acc_x = acc.read_raw_data(ACCEL_XOUT_H)
-	acc_y = acc.read_raw_data(ACCEL_YOUT_H)
-	acc_z = acc.read_raw_data(ACCEL_ZOUT_H)
-	
-	#Read Gyroscope raw value
-	gyro_x = acc.read_raw_data(GYRO_XOUT_H)
-	gyro_y = acc.read_raw_data(GYRO_YOUT_H)
-	gyro_z = acc.read_raw_data(GYRO_ZOUT_H)
-	
-	#Full scale range +/- 250 degree/C as per sensitivity scale factor
-	Ax = acc_x/16384.0
-	Ay = acc_y/16384.0
-	Az = acc_z/16384.0
-	
-	Gx = gyro_x/131.0
-	Gy = gyro_y/131.0
-	Gz = gyro_z/131.0
-	
+# while True:	
+#     acceleration = acc.compute_acceleration()
+#     angular_velocity = acc.compute_angular_velocity()	
 
-	print ("Gx=%.2f" %Gx, u'\u00b0'+ "/s", "\tGy=%.2f" %Gy, u'\u00b0'+ "/s", "\tGz=%.2f" %Gz, u'\u00b0'+ "/s", "\tAx=%.2f g" %Ax, "\tAy=%.2f g" %Ay, "\tAz=%.2f g" %Az) 	
-	sleep(1)
+#     print("Gx=%.2f" %angular_velocity[0], u'\u00b0'+ "/s", "\tGy=%.2f" %angular_velocity[1], u'\u00b0'+ "/s", "\tGz=%.2f" %angular_velocity[2], u'\u00b0'+ "/s", "\tAx=%.2f g" %acceleration[0], "\tAy=%.2f g" %acceleration[1], "\tAz=%.2f g" %acceleration[2]) 	
+#     sleep(1)
