@@ -1,16 +1,12 @@
 # External Dependancies
-# from curtsies import Input
-import sys
-import select
-from time import sleep
-# import cv2
+from curtsies import Input
 
 # Custom Dependencies
 from Accelerometer import Accelerometer
 from Scanner import Scanner
 from FileManager import FileManager
 
-PRIMARY_CONNECTION_STRING = "[primary connection string]"
+PRIMARY_CONNECTION_STRING = ""
 
 def event_loop(accelerometer, file_manager, scanner):
 
