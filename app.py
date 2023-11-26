@@ -1,5 +1,8 @@
 # External Dependancies
 from curtsies import Input
+import sys
+import select
+from time import sleep
 
 # Custom Dependencies
 from Accelerometer import Accelerometer
@@ -33,7 +36,7 @@ def event_loop(accelerometer, file_manager, scanner):
                 print("Ending session")
                 scan = scanner.stop_session()
                 file_manager.insert_session(scan)
-                file_manager.upload_to_azure_storage(PRIMARY_CONNECTION_STRING, path)
+                # file_manager.upload_to_azure_storage(PRIMARY_CONNECTION_STRING, path)
 
             elif (value == "d"):
                 file_manager.show_database()
@@ -42,7 +45,7 @@ def event_loop(accelerometer, file_manager, scanner):
 def main():
     accelerometer = Accelerometer()
     accelerometer.MPU_Init()
-    sleep(1)
+    # sleep(1)
 
     default_root_dir = "/home/crsz/Pictures/Scans/"
     file_manager = FileManager(default_root_dir)
