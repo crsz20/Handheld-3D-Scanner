@@ -1,12 +1,11 @@
 # External Dependancies
 from curtsies import Input
-# import cv2
 
 # Custom Dependencies
 from Scanner import Scanner
 from FileManager import FileManager
 
-PRIMARY_CONNECTION_STRING = "[primary connection string]"
+PRIMARY_CONNECTION_STRING = ""
 
 def evaluate_buttons(file_manager, scanner):
     with Input(keynames='curses') as input_generator:
@@ -39,7 +38,7 @@ def main():
     default_root_dir = "/home/crsz/Pictures/Scans/"
     file_manager = FileManager(default_root_dir)
     scanner = Scanner()
-
+    
     evaluate_buttons(file_manager, scanner)
 
     file_manager.show_database()

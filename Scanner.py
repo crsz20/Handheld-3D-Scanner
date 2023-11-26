@@ -3,6 +3,8 @@ from datetime import datetime
 from dateutil import tz
 from picamera2 import Picamera2
 
+from BackgroundRemover import BackgroundRemover
+
 # Handles taking a photo and controlling system
 # state. Then, hands the filepath + date to the database
 class Scanner:
@@ -11,6 +13,7 @@ class Scanner:
     is_in_session = False
     current_session_dir = ""
     image_count = 0
+    background_remover = BackgroundRemover()
         
     def __get_datetime(self):
         now = datetime.now()
@@ -44,7 +47,9 @@ class Scanner:
 
     def scan(self):
         self.image_count += 1
-        self.camera.capture_file(self.current_session_dir + "/image" + str(self.image_count) + ".jpg")
+        image_path = self.current_session_dir + "/image" + str(self.image_count) + ".jpg"
+        self.camera.capture_file(image_path)
+        self.background_remover.remove(image_path)
 
     def stop_session(self):
         if self.is_in_session == True:
