@@ -6,7 +6,7 @@ class BackgroundRemover:
     scaled_thresh = 0
 
     def __init__(self):
-        self.blk_thresh = 100 #tune?
+        self.blk_thresh = 0 #tune?
         self.scaled_thresh = self.valueScaling()
 
     def remove(self, image_path):
